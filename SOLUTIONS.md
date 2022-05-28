@@ -12,6 +12,8 @@
 
 3. Truster
 
+   > It is possible to call flashload function with token address as a target and any payload. We can't change the balance of the pool due to guards, but we can approve any amount of tokens on behalf of the pool itself. See [TrusterExploit.sol](contracts/attacker-contracts/TrusterExploit.sol) for the implementation.
+
 4. Side entrance
 
 5. The rewarder
