@@ -16,6 +16,8 @@
 
 4. Side entrance
 
+   > Pool allows to deposit, we can use it to bypass flashloan guards as it check pool balance at the end. See [SideExploit.sol](contracts/attacker-contracts/SideExploit.sol) for the implementation.
+
 5. The rewarder
 
 6. Selfie
