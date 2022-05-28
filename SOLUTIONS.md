@@ -20,6 +20,8 @@
 
 5. The rewarder
 
+   > Snapshotting for rewards is bad. We can flashloan lp tokens, deposit and immediately withdraw em successfully grabbing most of the rewards. See [RewarderExploit.sol](contracts/attacker-contracts/RewarderExploit.sol) for the implementation.
+
 6. Selfie
 
 7. Compromised
