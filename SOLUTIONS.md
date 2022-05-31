@@ -32,9 +32,11 @@
 
 8. Puppet
 
-   > Pretty easy solution, we just sell all our tokens (except 1 wei) to the Uniswap pool, this will shift the price significantly, then just borrow everything from the lending pool. We can do this in the smart contract, but its not really necessary.
+   > Pretty easy solution, we just sell all our tokens (except 1 wei) to the Uniswap pool, this will shift the price significantly, then just borrow everything from the lending pool. We can do this in the smart contract, but its not really necessary for this challenge.
 
 9. Puppet v2
+
+   > Same as above, but uses Uniswap V2, not sure maybe I'm doing something wrong? To make it clear, the solution just empties the pool and don't care about ETH balance, we could optimize the math and make it way more efficient to keep our ether :) Also, in the real world you should put all this logic into the smart contract, so noone could frontrun you, this also applies to the previous challenge.
 
 10. Free rider
 
