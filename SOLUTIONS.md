@@ -28,6 +28,8 @@
 
 7. Compromised
 
+   > The leak is a group of bytes, which we can tranform to string, which looks like a base64 encoded string, after decoding we will get 2 private keys for trusted oracles. Using this 2 keys we can manipulate the price of the nft. Set price to 1 wei, buy the token, set price to exchange balance and sell the token to clear balance of the exchange contract. Note: You have to use `approve` function, as exchange contract only checks `_tokenApprovals` and not `_operatorApprovals`.
+
 8. Puppet
 
 9. Puppet v2
