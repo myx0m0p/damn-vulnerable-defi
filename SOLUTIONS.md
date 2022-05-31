@@ -40,6 +40,8 @@
 
 10. Free rider
 
+    > This was fun! The bug which we can exploit is inside `buyMany` function wich allows you to buy all tokens for the price of 1. But we need to get 15 ether somewhere. Fortunately there is a uniswap v2 pair deployed with enough liquidity. So the plan is to get flashloan from the pool, buy all NFTs, get the reward from the buyer contract and repay the loan. See [FreeRiderExploit.sol](contracts/attacker-contracts/FreeRiderExploit.sol) for the implementation.
+
 11. Backdoor
 
 12. Climber
