@@ -32,6 +32,8 @@
 
 8. Puppet
 
+   > Pretty easy solution, we just sell all our tokens (except 1 wei) to the Uniswap pool, this will shift the price significantly, then just borrow everything from the lending pool. We can do this in the smart contract, but its not really necessary.
+
 9. Puppet v2
 
 10. Free rider
